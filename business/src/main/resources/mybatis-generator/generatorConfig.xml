@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="dao" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$" />
+            <property name="replaceString" value="Criteria" />
+        </plugin>
+
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!--<plugin type="org.mybatis.generator.plugins.CachePlugin"> -->
+        <!--<property name="enableSubPackages" value="true"/> -->
+        <!--</plugin> -->
+
+        <commentGenerator>
+            <property name="suppressDate" value="false" />
+            <property name="suppressAllComments" value="false" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://116.62.143.57/upsrd" userId="root"
+                        password="Hjn184736351">
+        </jdbcConnection>
+
+        <!-- NOTE: When targetProject is set to "MAVEN", the default output is
+            target/generated-sources/mybatis-generator -->
+
+        <javaModelGenerator targetPackage="com.pgy.ups.account.business.dao.domain"
+                            targetProject="MAVEN"><!-- src/generated/java -->
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="sqlmap"
+                         targetProject="MAVEN"> <!-- src/generated/resources -->
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.pgy.ups.account.business.dao.domain"
+                             targetProject="MAVEN"> <!-- src/generated/java -->
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- tables -->
+
+        <table schema="upsrd" tableName="auth_sign_config" domainObjectName="AuthSignConfig" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
