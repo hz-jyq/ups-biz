@@ -1,9 +1,9 @@
 server:
   port: 9050
-  
-logging: 
+
+logging:
   path: /usr/local/spring-boot
-  
+
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -30,7 +30,7 @@ spring:
     url: jdbc:mysql://116.62.143.57:3306/upsrd?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
     password: Hjn184736351
-    druid: 
+    druid:
       maxActive: 500
       initialSize: 5
       minIdle: 5
@@ -71,7 +71,3 @@ mybatis-plus:
     #使用驼峰法映射属性
     map-underscore-to-camel-case: true
     cache-enabled: false
-user-rest-url:
-  url:
-    kd:
-      prefix: https://pw.360fengdai.com/fengdai_pocketWallet

@@ -1,9 +1,7 @@
-package com.pgy.ups.account.business.dao.domain;
+package com.pay.ups.account.facade.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import com.baomidou.mybatisplus.plugins.Page;
 
 public class AuthSignConfig implements Serializable {
     /**

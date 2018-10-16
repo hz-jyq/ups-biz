@@ -11,6 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
 
@@ -19,6 +21,7 @@ import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
  */
 @SpringBootApplication
 @EnableSpringConfigured
+@ImportResource(locations={"classpath:dubbo.xml"})
 public class UpsAccountApplication {
     private static final Logger logger = LoggerFactory.getLogger(UpsAccountApplication.class);
 
@@ -28,7 +31,9 @@ public class UpsAccountApplication {
         logger.info ("start-up [ups-account] success !!!");
     }
 
-    @Configuration
+
+
+   @Configuration
    @MapperScan("com.pgy.ups.account.business.dao.mapper")
     public static class MybatisPlusConfig {
 

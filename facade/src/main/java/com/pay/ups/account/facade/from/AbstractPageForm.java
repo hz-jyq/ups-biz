@@ -1,11 +1,10 @@
 package com.pay.ups.account.facade.from;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
 
 public class AbstractPageForm<T extends AbstractPageForm<T>>{
 
-
-    public  Page page;
 
     private int pageSize;
 
@@ -28,7 +27,7 @@ public class AbstractPageForm<T extends AbstractPageForm<T>>{
     }
 
     public final T enablePaging() {
-        page = new Page<T>(1,3);
+        PageHelper.startPage(1, 4);
         return (T) this;
     }
 }
