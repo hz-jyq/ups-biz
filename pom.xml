@@ -206,10 +206,6 @@
                         <groupId>org.slf4j</groupId>
                         <artifactId>slf4j-log4j12</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <artifactId>log4j</artifactId>
-                        <groupId>log4j</groupId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <!-- netty -->
@@ -363,11 +359,11 @@
                 <artifactId>logback-core</artifactId>
                 <version>${logback.version}</version>
             </dependency>
-            <dependency>
+           <!-- <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
-            </dependency>
+            </dependency>-->
             <!-- junit -->
             <dependency>
                 <groupId>junit</groupId>
