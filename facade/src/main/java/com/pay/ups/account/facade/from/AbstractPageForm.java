@@ -1,6 +1,5 @@
 package com.pay.ups.account.facade.from;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
 
 public class AbstractPageForm<T extends AbstractPageForm<T>>{

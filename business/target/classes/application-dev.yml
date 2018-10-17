@@ -1,22 +1,13 @@
 server:
-  port: 9050
-  
+  port: 8080
+   
 logging: 
   path: /usr/local/spring-boot
-
-spring:
-  #dubbo:
-   # application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
-    #  name: Provide
-    #registry:                 #注册中心配置，用于配置连接注册中心相关信息。
-     # address: zookeeper://127.0.0.1:2181
-    #protocol:     #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
-     # name: dubbo
-      #port: -1
-    #scan: com.pay.ups.account #服务暴露与发现消费所在的package
+  
+spring:   
   jackson:
-   date-format: yyyy-MM-dd HH:mm:ss
-   time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   scan: store.bymin.user
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -63,3 +54,11 @@ mybatis-plus:
     #使用驼峰法映射属性
     map-underscore-to-camel-case: true
     cache-enabled: false
+    
+dubbo:
+  name: ups-account-provider
+  logger: slf4j
+  address: zookeeper://127.0.0.1:2181
+  zkClient: curator   
+    
+    
