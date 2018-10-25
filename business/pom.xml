@@ -3,18 +3,18 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
-		<groupId>com.pgy.upsAccount</groupId>
-		<artifactId>ups-account</artifactId>
+		<groupId>com.pgy.upsBiz</groupId>
+		<artifactId>ups-biz</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>ups-account-business</artifactId>
+	<artifactId>ups-biz-business</artifactId>
 	<packaging>jar</packaging>
 
-	<name>ups-account-business</name>
+	<name>ups-biz-business</name>
 
 	<properties>
 		<mybatis.generator.overwrite>true</mybatis.generator.overwrite>
@@ -68,12 +68,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.pgy.upsAccount</groupId>
-			<artifactId>ups-account-facade</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
+
 
 		<dependency>
 			<groupId>com.baomidou</groupId>
@@ -116,7 +111,19 @@
 			<artifactId>dubbo</artifactId>
 			<version>2.6.4</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>com.pgy.upsBiz</groupId>
+			<artifactId>ups-biz-facade</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.pgy.upsAccount</groupId>
+			<artifactId>ups-account-facade</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-framework</artifactId>
@@ -140,6 +147,18 @@
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.pgy.upsBiz</groupId>
+			<artifactId>ups-biz-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<resources>

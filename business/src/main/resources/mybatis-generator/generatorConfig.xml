@@ -23,14 +23,14 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://116.62.143.57/upsrd" userId="root"
+                        connectionURL="jdbc:mysql://116.62.143.57/ldd_biz" userId="root"
                         password="Hjn184736351">
         </jdbcConnection>
 
         <!-- NOTE: When targetProject is set to "MAVEN", the default output is
             target/generated-sources/mybatis-generator -->
 
-        <javaModelGenerator targetPackage="com.pgy.ups.account.business.dao.domain"
+        <javaModelGenerator targetPackage="com.pgy.ups.biz.business.dao.mapper.sysCronJob"
                             targetProject="MAVEN"><!-- src/generated/java -->
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
@@ -42,14 +42,14 @@
         </sqlMapGenerator>
 
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.pgy.ups.account.business.dao.domain"
+                             targetPackage="com.pgy.ups.biz.business.dao.mapper.sysCronJob"
                              targetProject="MAVEN"> <!-- src/generated/java -->
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
         <!-- tables -->
 
-        <table schema="upsrd" tableName="auth_sign_config" domainObjectName="AuthSignConfig" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        <table schema="lsd_biz" tableName="sys_cron_job" domainObjectName="SysCronJob" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
         </table>

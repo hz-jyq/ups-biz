@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9050
    
 logging: 
   path: /usr/local/spring-boot
@@ -11,7 +11,7 @@ spring:
   scan: store.bymin.user
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://116.62.143.57:3306/upsrd?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    url: jdbc:mysql://116.62.143.57:3306/ldd_biz?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
     password: Hjn184736351
     druid:
@@ -34,7 +34,7 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=6000
   #mybatis
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath:/mapper/*/*Mapper.xml
   typeAliasesPackage: com.pgy.ups.account.entity
   global-config:
     #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
@@ -56,9 +56,11 @@ mybatis-plus:
     cache-enabled: false
     
 dubbo:
-  name: ups-account-provider
+  name: ups-account-consumer
   logger: slf4j
   address: zookeeper://127.0.0.1:2181
-  zkClient: curator   
+  zkClient: curator
+system:
+  code: "01"
     
     
