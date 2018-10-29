@@ -79,7 +79,7 @@ public class BorrowCashServiceImpl  implements BorrowCashService {
             BusinessProofreadModel model = new BusinessProofreadModel();
             model.setOrderCreateTime(DateUtils.getSimpleDateFormatYmdHms(lsdBorrowCash.getGmtCreate()));
             model.setProofreadDate(DateUtils.getSimpleDateFormatYmdHms(new Date()));
-            model.setExchangeAmount(lsdBorrowCash.getRepayAmount());
+            model.setExchangeAmount(lsdBorrowCash.getArrivalAmount());
             model.setBorrowNum(lsdBorrowCash.getBorrowNo());
             model.setBusinessOrderNum(lsdBorrowCash.getTradeNo());
             model.setBusinessOrderStatuts(lsdBorrowCash.getStatus().toString());
