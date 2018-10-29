@@ -58,6 +58,7 @@
     <result column="user_coupon_id" property="userCouponId" jdbcType="BIGINT" />
     <result column="coupon_amount" property="couponAmount" jdbcType="DECIMAL" />
     <result column="current_quota" property="currentQuota" jdbcType="DECIMAL" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.pgy.ups.biz.facade.model.borrowCash.LsdBorrowCash" extends="BaseResultMap" >
     <!--

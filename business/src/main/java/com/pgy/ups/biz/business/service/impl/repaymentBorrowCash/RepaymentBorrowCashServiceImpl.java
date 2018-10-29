@@ -11,10 +11,12 @@ import com.pgy.ups.biz.business.dao.mapper.upsCheckAccountsRecord.UpsCheckAccoun
 import com.pgy.ups.biz.commom.date.DateUtils;
 import com.pgy.ups.biz.facade.model.renewalDetail.LsdRenewalDetail;
 import com.pgy.ups.biz.facade.model.repaymentBorrowCash.LsdRepaymentBorrowCash;
+import com.pgy.ups.biz.facade.model.sysCronJob.SysCronJob;
 import com.pgy.ups.biz.facade.model.upsCheckAccounts.UpsCheckAccounts;
 import com.pgy.ups.biz.facade.model.upsCheckAccountsRecord.UpsCheckAccountsRecord;
 import com.pgy.ups.biz.facade.service.RenewalDetailService;
 import com.pgy.ups.biz.facade.service.RepaymentBorrowCashService;
+import com.pgy.ups.biz.facade.service.SysCronJobService;
 import com.pgy.ups.biz.facade.service.UpsCheckAccountsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +50,9 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
     @Resource
     private UpsCheckAccountsRecordMapper UpsCheckAccountsRecordMapper;
 
+    @Autowired
+    private SysCronJobService sysCronJobService;
+
     private Logger logger = LoggerFactory.getLogger(RepaymentBorrowCashServiceImpl.class);
 
 
@@ -58,6 +63,10 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
 
     @Override
     public void accountCheck(Date date) {
+        SysCronJob sysCronJob =  sysCronJobService.getSysCronByBeanId("upsWithhold");
+        if(sysCronJob == null || !sysCronJob.getIsOpen().toString().equals("0")){
+            return;
+        }
         String strDate =  DateUtils.getDateForString(date);
         logger.info("运行每日代扣对账{}",strDate);
         UpsCheckAccounts upsCheckAccounts = upsCheckAccountsService.getRecordTypeAndYmd(ProofreadAccountType.RETURN,strDate,true);
@@ -67,9 +76,7 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
         List<LsdRenewalDetail> renewalDetailList =  renewalDetailService.getEverydayList(date);
         List<LsdRepaymentBorrowCash>  lsdRepaymentBorrowCashList  =  getEverydayList(date);
         List<BusinessProofreadModel>  list =   getModelList(renewalDetailList,lsdRepaymentBorrowCashList);
-       // ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), ProofreadAccountType.RETURN,date);
-        ProofreadResult result = new ProofreadResult();
-        result.setSuccess(true);
+        ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), ProofreadAccountType.RETURN,date);
         saveResult(result,strDate,ProofreadAccountType.RETURN);
     }
 
@@ -77,19 +84,23 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
             List<BusinessProofreadModel> proofreadModelList = new ArrayList<BusinessProofreadModel>();
             for( LsdRenewalDetail detail : renewalDetailList){
                 BusinessProofreadModel model = new BusinessProofreadModel();
+                model.setOrderCreateTime(DateUtils.getSimpleDateFormatYmdHms(detail.getGmtCreate()));
+                model.setProofreadDate(DateUtils.getSimpleDateFormatYmdHms(new Date()));
                 model.setBorrowNum(detail.getBorrowNo());
                 model.setExchangeAmount(detail.getActualAmount());
-                model.setBussinessOrderStatuts(detail.getStatus().toString());
+                model.setBusinessOrderStatuts(detail.getStatus().toString());
                 model.setBusinessOrderNum(detail.getTradeNo());
                 model.setBorrowNum(detail.getBorrowNo());
                 proofreadModelList.add(model);
             }
             for( LsdRepaymentBorrowCash repaymentBorrowCash : lsdRepaymentBorrowCashList){
                 BusinessProofreadModel model = new BusinessProofreadModel();
+                model.setOrderCreateTime(DateUtils.getSimpleDateFormatYmdHms(repaymentBorrowCash.getGmtCreate()));
+                model.setProofreadDate(DateUtils.getSimpleDateFormatYmdHms(new Date()));
                 model.setBorrowNum(repaymentBorrowCash.getBorrowNo());
                 model.setBusinessOrderNum(repaymentBorrowCash.getBorrowNo());
                 model.setExchangeAmount(repaymentBorrowCash.getActualAmount());
-                model.setBussinessOrderStatuts(repaymentBorrowCash.getStatus().toString());
+                model.setBusinessOrderStatuts(repaymentBorrowCash.getStatus().toString());
                 model.setBusinessOrderNum(repaymentBorrowCash.getTradeNo());
                 proofreadModelList.add(model);
             }

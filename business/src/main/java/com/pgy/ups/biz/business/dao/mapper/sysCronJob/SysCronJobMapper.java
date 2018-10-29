@@ -50,4 +50,6 @@ public interface SysCronJobMapper {
      * @mbggenerated Wed Oct 24 20:41:23 CST 2018
      */
     int updateByPrimaryKey(SysCronJob record);
+
+    SysCronJob  getSysCronByBeanId(String beanId);
 }

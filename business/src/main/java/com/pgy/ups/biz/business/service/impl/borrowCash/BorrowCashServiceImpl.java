@@ -7,12 +7,17 @@ import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
 import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 import com.pgy.ups.biz.business.configuration.SystemProperties;
 import com.pgy.ups.biz.business.dao.mapper.borrowCash.LsdBorrowCashMapper;
+import com.pgy.ups.biz.business.service.impl.repaymentBorrowCash.RepaymentBorrowCashServiceImpl;
 import com.pgy.ups.biz.commom.date.DateUtils;
 import com.pgy.ups.biz.facade.model.borrowCash.LsdBorrowCash;
+import com.pgy.ups.biz.facade.model.sysCronJob.SysCronJob;
 import com.pgy.ups.biz.facade.model.upsCheckAccounts.UpsCheckAccounts;
 import com.pgy.ups.biz.facade.service.BorrowCashService;
 import com.pgy.ups.biz.facade.service.RepaymentBorrowCashService;
+import com.pgy.ups.biz.facade.service.SysCronJobService;
 import com.pgy.ups.biz.facade.service.UpsCheckAccountsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +42,12 @@ public class BorrowCashServiceImpl  implements BorrowCashService {
     private UpsCheckAccountsService upsCheckAccountsService;
 
     @Autowired
+    private SysCronJobService  sysCronJobService;
+
+    @Autowired
     private RepaymentBorrowCashService  repaymentBorrowCashService;
+
+    private Logger logger = LoggerFactory.getLogger(BorrowCashServiceImpl.class);
 
 
     @Override
@@ -47,16 +57,19 @@ public class BorrowCashServiceImpl  implements BorrowCashService {
 
     @Override
     public void accountCheck(Date date) {
+        SysCronJob sysCronJob  = sysCronJobService.getSysCronByBeanId("upsPayFor");
+        if(sysCronJob == null || !sysCronJob.getIsOpen().toString().equals("0")){
+            return;
+        }
         String strDate =  DateUtils.getDateForString(date);
+        logger.info("运行每日代付对账{}",strDate);
         UpsCheckAccounts upsCheckAccounts = upsCheckAccountsService.getRecordTypeAndYmd(ProofreadAccountType.BORROW,strDate,true);
         if(upsCheckAccounts != null){
             return;
         }
         List<LsdBorrowCash>  lsdBorrowCashList  = getEverydayList(date);
         List<BusinessProofreadModel>  list =  getModelList(lsdBorrowCashList);
-      //  ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), ProofreadAccountType.BORROW,date);
-        ProofreadResult result = new ProofreadResult();
-        result.setSuccess(true);
+       ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), ProofreadAccountType.BORROW,date);
         repaymentBorrowCashService.saveResult(result,strDate,ProofreadAccountType.BORROW);
     }
 
@@ -64,11 +77,12 @@ public class BorrowCashServiceImpl  implements BorrowCashService {
         List<BusinessProofreadModel> proofreadModelList = new ArrayList<BusinessProofreadModel>();
         for(LsdBorrowCash lsdBorrowCash : list){
             BusinessProofreadModel model = new BusinessProofreadModel();
-            //lsdBorrowCash.getGmtCreate();
-          // model.setOrderCreateTime();
+            model.setOrderCreateTime(DateUtils.getSimpleDateFormatYmdHms(lsdBorrowCash.getGmtCreate()));
+            model.setProofreadDate(DateUtils.getSimpleDateFormatYmdHms(new Date()));
             model.setExchangeAmount(lsdBorrowCash.getRepayAmount());
             model.setBorrowNum(lsdBorrowCash.getBorrowNo());
-            model.setBussinessOrderStatuts(lsdBorrowCash.getStatus().toString());
+            model.setBusinessOrderNum(lsdBorrowCash.getTradeNo());
+            model.setBusinessOrderStatuts(lsdBorrowCash.getStatus().toString());
             proofreadModelList.add(model);
         }
         return  proofreadModelList;

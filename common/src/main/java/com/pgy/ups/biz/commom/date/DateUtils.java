@@ -35,9 +35,14 @@ public class DateUtils {
     }
 
     public static String getSimpleDateFormat(Date date,String format) {
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat(format);
-        String  str = simpleDateFormat.format(date);
-        return str;
+        String  str = null;
+        try {
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat(format);
+            str = simpleDateFormat.format(date);
+        }catch (Exception e){
+
+        }
+        return  str;
     }
 
     public static String getSimpleDateFormatYYYMMDD(Date date) {
@@ -50,5 +55,10 @@ public class DateUtils {
         String[]  args = str.split("-");
         String  dateString = args[0] + args[1] + args[2];
         return dateString;
+    }
+
+    public static  String getSimpleDateFormatYmdHms(Date date) {
+        return  getSimpleDateFormat(date,"yyyy-mm-dd hh:mm:ss");
+
     }
 }

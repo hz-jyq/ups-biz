@@ -56,9 +56,9 @@ mybatis-plus:
     cache-enabled: false
     
 dubbo:
-  name: ups-account-consumer
+  name: ups-account-meiqi-consumer
   logger: slf4j
-  address: zookeeper://127.0.0.1:2181
+  address: zokeeper://127.0.0.1:2181 #zookeeper://192.168.2.116:2181
   zkClient: curator
 system:
   code: "01"

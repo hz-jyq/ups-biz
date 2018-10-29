@@ -198,7 +198,7 @@
 				<configuration>
 					<fork>true</fork>
 					<layout>ZIP</layout>
-					<mainClass>com.yylc.risk.gateway.business.RiskGatewayApplication</mainClass>
+					<mainClass>com.pgy.ups.biz.business.UpsBizApplication</mainClass>
 				</configuration>
 				<executions>
 					<execution>

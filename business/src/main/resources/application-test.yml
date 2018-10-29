@@ -8,9 +8,10 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  scan: store.bymin.user
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://116.62.143.57:3306/upsrd?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    url: jdbc:mysql://116.62.143.57:3306/ldd_biz?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
     password: Hjn184736351
     druid:
@@ -33,7 +34,7 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=6000
   #mybatis
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath:/mapper/*/*Mapper.xml
   typeAliasesPackage: com.pgy.ups.account.entity
   global-config:
     #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
@@ -53,3 +54,12 @@ mybatis-plus:
     #使用驼峰法映射属性
     map-underscore-to-camel-case: true
     cache-enabled: false
+
+dubbo:
+  name: ups-account-meiqi-consumer
+  logger: slf4j
+  address: zookeeper://192.168.2.116:2181
+  zkClient: curator
+system:
+  code: "01"
+

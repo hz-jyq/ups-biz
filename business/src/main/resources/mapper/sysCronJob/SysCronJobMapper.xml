@@ -236,4 +236,8 @@
       job_type = #{jobType,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <select id="getSysCronByBeanId"  resultType="com.pgy.ups.biz.facade.model.sysCronJob.SysCronJob">
+      select  * from sys_cron_job where  is_delete = 0  and   bean_id = #{beanId,jdbcType=VARCHAR}
+  </select>
 </mapper>
