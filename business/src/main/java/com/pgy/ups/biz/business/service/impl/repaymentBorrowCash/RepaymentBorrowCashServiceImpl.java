@@ -77,7 +77,9 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
         List<LsdRepaymentBorrowCash>  lsdRepaymentBorrowCashList  =  getEverydayList(date);
         List<BusinessProofreadModel>  list =   getModelList(renewalDetailList,lsdRepaymentBorrowCashList);
         ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), ProofreadAccountType.RETURN,date);
+        logger.info("代扣ProofreadResult返回的结果{}",result.toString());
         saveResult(result,strDate,ProofreadAccountType.RETURN);
+        logger.info("每日代扣结束{}",result.toString());
     }
 
         private List<BusinessProofreadModel> getModelList(List<LsdRenewalDetail> renewalDetailList,List<LsdRepaymentBorrowCash>  lsdRepaymentBorrowCashList){
