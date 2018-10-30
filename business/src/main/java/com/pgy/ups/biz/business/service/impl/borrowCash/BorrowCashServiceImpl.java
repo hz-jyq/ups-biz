@@ -65,14 +65,19 @@ public class BorrowCashServiceImpl  implements BorrowCashService {
         logger.info("运行每日代付对账{}",strDate);
         UpsCheckAccounts upsCheckAccounts = upsCheckAccountsService.getRecordTypeAndYmd(ProofreadAccountType.BORROW,strDate,true);
         if(upsCheckAccounts != null){
+            logger.info("每日代付对账已经成功不在运行");
             return;
         }
         List<LsdBorrowCash>  lsdBorrowCashList  = getEverydayList(date);
         List<BusinessProofreadModel>  list =  getModelList(lsdBorrowCashList);
        ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), ProofreadAccountType.BORROW,date);
-        logger.info("ProofreadResult返回的结果{}",result.toString());
-        repaymentBorrowCashService.saveResult(result,strDate,ProofreadAccountType.BORROW);
-        logger.info("每日对账代付结束");
+       if(result == null){
+           logger.error("每日代付对账ProofreadResult返回为null");
+           return;
+       }
+       logger.info("ProofreadResult返回的结果{}",result.toString());
+       repaymentBorrowCashService.saveResult(result,strDate,ProofreadAccountType.BORROW);
+        logger.info("每日代扣结束");
     }
 
     private List<BusinessProofreadModel> getModelList(List<LsdBorrowCash> list ){

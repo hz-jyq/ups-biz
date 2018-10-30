@@ -71,15 +71,20 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
         logger.info("运行每日代扣对账{}",strDate);
         UpsCheckAccounts upsCheckAccounts = upsCheckAccountsService.getRecordTypeAndYmd(ProofreadAccountType.RETURN,strDate,true);
         if(upsCheckAccounts != null){
+            logger.info("每日代扣对账已经成功不在运行");
             return;
         }
         List<LsdRenewalDetail> renewalDetailList =  renewalDetailService.getEverydayList(date);
         List<LsdRepaymentBorrowCash>  lsdRepaymentBorrowCashList  =  getEverydayList(date);
         List<BusinessProofreadModel>  list =   getModelList(renewalDetailList,lsdRepaymentBorrowCashList);
         ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), ProofreadAccountType.RETURN,date);
+        if(result == null){
+            logger.error("每日代扣对账ProofreadResult返回为null");
+            return;
+        }
         logger.info("代扣ProofreadResult返回的结果{}",result.toString());
         saveResult(result,strDate,ProofreadAccountType.RETURN);
-        logger.info("每日代扣结束{}",result.toString());
+        logger.info("每日代扣结束");
     }
 
         private List<BusinessProofreadModel> getModelList(List<LsdRenewalDetail> renewalDetailList,List<LsdRepaymentBorrowCash>  lsdRepaymentBorrowCashList){
@@ -119,8 +124,8 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
             upsCheckAccounts.setGmtModified(new Date());
             upsCheckAccounts.setReturnCode(result.getSuccess());
             upsCheckAccounts.setYmd(strDate);
-            upsCheckAccounts.setReturnCode(result.getSuccess());
             upsCheckAccounts.setProofreadType(type);
+            upsCheckAccounts.setFromSystem(result.getFromSystem());
             upsCheckAccountsService.insertSelective(upsCheckAccounts);
         }else{
             upsCheckAccounts.setReturnCode(result.getSuccess());
