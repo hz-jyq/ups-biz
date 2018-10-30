@@ -117,6 +117,7 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
 
     @Override
     public void saveResult(ProofreadResult result,String strDate,String type){
+        logger.info("saveResult参数proofreadType:{},strDate:{},type{}",result.getProofreadType(),strDate,type);
         UpsCheckAccounts upsCheckAccounts = upsCheckAccountsService.getRecordTypeAndYmd(type,strDate,null);
         if(upsCheckAccounts == null){
             upsCheckAccounts = new UpsCheckAccounts();
@@ -124,7 +125,7 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
             upsCheckAccounts.setGmtModified(new Date());
             upsCheckAccounts.setReturnCode(result.getSuccess());
             upsCheckAccounts.setYmd(strDate);
-            upsCheckAccounts.setProofreadType(type);
+            upsCheckAccounts.setProofreadType(result.getProofreadType());
             upsCheckAccounts.setFromSystem(result.getFromSystem());
             upsCheckAccountsService.insertSelective(upsCheckAccounts);
         }else{
@@ -139,7 +140,7 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
         record.setGmtModified(new Date());
         record.setReturnCode(result.getSuccess());
         record.setYmd(strDate);
-        record.setProofreadType(type);
+        record.setProofreadType(result.getProofreadType());
         UpsCheckAccountsRecordMapper.insertSelective(record);
     }
 }
