@@ -79,7 +79,7 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
         List<LsdRenewalDetail> renewalDetailList =  renewalDetailService.getEverydayList(date);
         List<LsdRepaymentBorrowCash>  lsdRepaymentBorrowCashList  =  getEverydayList(date);
         List<BusinessProofreadModel>  list =   getModelList(renewalDetailList,lsdRepaymentBorrowCashList);
-        logger.info("每日代付对账ProofreadResult传参ststem:{},type:{},date:{}",systemProperties.getCode(),typeReturn,date);
+        logger.info("每日代扣对账ProofreadResult传参ststem:{},type:{},date:{}",systemProperties.getCode(),typeReturn,date);
         ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), typeReturn,date);
         if(result == null){
             logger.error("每日代扣对账ProofreadResult返回为null");

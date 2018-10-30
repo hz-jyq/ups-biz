@@ -80,7 +80,7 @@ public class BorrowCashServiceImpl  implements BorrowCashService {
        }
        logger.info("ProofreadResult返回的结果{}",result.toString());
        repaymentBorrowCashService.saveResult(result,strDate,typeBorrow);
-        logger.info("每日代扣结束");
+        logger.info("每日代付结束");
     }
 
     private List<BusinessProofreadModel> getModelList(List<LsdBorrowCash> list ){
