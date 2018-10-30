@@ -53,6 +53,8 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
     @Autowired
     private SysCronJobService sysCronJobService;
 
+    public  static   String typeReturn= ProofreadAccountType.RETURN;
+
     private Logger logger = LoggerFactory.getLogger(RepaymentBorrowCashServiceImpl.class);
 
 
@@ -69,7 +71,7 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
         }
         String strDate =  DateUtils.getDateForString(date);
         logger.info("运行每日代扣对账{}",strDate);
-        UpsCheckAccounts upsCheckAccounts = upsCheckAccountsService.getRecordTypeAndYmd(ProofreadAccountType.RETURN,strDate,true);
+        UpsCheckAccounts upsCheckAccounts = upsCheckAccountsService.getRecordTypeAndYmd(typeReturn,strDate,true);
         if(upsCheckAccounts != null){
             logger.info("每日代扣对账已经成功不在运行");
             return;
@@ -77,13 +79,14 @@ public class RepaymentBorrowCashServiceImpl implements RepaymentBorrowCashServic
         List<LsdRenewalDetail> renewalDetailList =  renewalDetailService.getEverydayList(date);
         List<LsdRepaymentBorrowCash>  lsdRepaymentBorrowCashList  =  getEverydayList(date);
         List<BusinessProofreadModel>  list =   getModelList(renewalDetailList,lsdRepaymentBorrowCashList);
-        ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), ProofreadAccountType.RETURN,date);
+        logger.info("每日代付对账ProofreadResult传参ststem:{},type:{},date:{}",systemProperties.getCode(),typeReturn,date);
+        ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), typeReturn,date);
         if(result == null){
             logger.error("每日代扣对账ProofreadResult返回为null");
             return;
         }
         logger.info("代扣ProofreadResult返回的结果{}",result.toString());
-        saveResult(result,strDate,ProofreadAccountType.RETURN);
+        saveResult(result,strDate,typeReturn);
         logger.info("每日代扣结束");
     }
 

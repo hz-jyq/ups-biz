@@ -49,6 +49,8 @@ public class BorrowCashServiceImpl  implements BorrowCashService {
 
     private Logger logger = LoggerFactory.getLogger(BorrowCashServiceImpl.class);
 
+    public  static   String typeBorrow = ProofreadAccountType.BORROW;
+
 
     @Override
     public List<LsdBorrowCash> getEverydayList(Date date) {
@@ -63,20 +65,21 @@ public class BorrowCashServiceImpl  implements BorrowCashService {
         }
         String strDate =  DateUtils.getDateForString(date);
         logger.info("运行每日代付对账{}",strDate);
-        UpsCheckAccounts upsCheckAccounts = upsCheckAccountsService.getRecordTypeAndYmd(ProofreadAccountType.BORROW,strDate,true);
+        UpsCheckAccounts upsCheckAccounts = upsCheckAccountsService.getRecordTypeAndYmd(typeBorrow,strDate,true);
         if(upsCheckAccounts != null){
             logger.info("每日代付对账已经成功不在运行");
             return;
         }
         List<LsdBorrowCash>  lsdBorrowCashList  = getEverydayList(date);
         List<BusinessProofreadModel>  list =  getModelList(lsdBorrowCashList);
-       ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(), ProofreadAccountType.BORROW,date);
+        logger.info("每日代付对账ProofreadResult传参ststem:{},type:{},date:{}",systemProperties.getCode(),typeBorrow,date);
+       ProofreadResult result = proofreadAccountApi.ProofreadStart(list, systemProperties.getCode(),typeBorrow,date);
        if(result == null){
            logger.error("每日代付对账ProofreadResult返回为null");
            return;
        }
        logger.info("ProofreadResult返回的结果{}",result.toString());
-       repaymentBorrowCashService.saveResult(result,strDate,ProofreadAccountType.BORROW);
+       repaymentBorrowCashService.saveResult(result,strDate,typeBorrow);
         logger.info("每日代扣结束");
     }
 
