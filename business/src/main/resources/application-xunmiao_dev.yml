@@ -11,9 +11,9 @@ spring:
   scan: store.bymin.user
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://116.62.143.57:3306/ldd_biz?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    url: jdbc:mysql://47.96.138.212:3306/ldd?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
-    password: Hjn184736351
+    password: xunmiao@pgy@2018
     druid:
       maxActive: 500
       initialSize: 5
@@ -58,7 +58,7 @@ mybatis-plus:
 dubbo:
   name: ups-account-xunmiao-consumer
   logger: slf4j
-  address: zokeeper://127.0.0.1:2181 #zookeeper://192.168.2.116:2181
+  address: zookeeper://172.16.98.18:2181 #zookeeper://192.168.2.116:2181
   zkClient: curator
 system:
   code: "03"

@@ -58,7 +58,7 @@ public class DateUtils {
     }
 
     public static  String getSimpleDateFormatYmdHms(Date date) {
-        return  getSimpleDateFormat(date,"yyyy-mm-dd hh:mm:ss");
+        return  getSimpleDateFormat(date,"yyyy-MM-dd HH:mm:ss");
 
     }
 }

@@ -78,7 +78,7 @@ public class BorrowCashServiceImpl  implements BorrowCashService {
            logger.error("每日代付对账ProofreadResult返回为null");
            return;
        }
-       logger.info("ProofreadResult返回的结果{}",result.toString());
+       logger.info("代付ProofreadResult返回的结果{}",result.toString());
        repaymentBorrowCashService.saveResult(result,strDate,typeBorrow);
         logger.info("每日代付结束");
     }

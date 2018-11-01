@@ -2,7 +2,7 @@ server:
   port: 9050
 
 logging:
-  path: /usr/local/spring-boot
+  path: /usr/local/spring-boot/usp-biz
 
 spring:
   jackson:
@@ -11,9 +11,9 @@ spring:
   scan: store.bymin.user
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://116.62.143.57:3306/ldd_biz?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
-    username: root
-    password: Hjn184736351
+    url: jdbc:mysql://rm-bp1929ksz2x1492y3.mysql.rds.aliyuncs.com:3306/ldd?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: mqfq_api2018
+    password: Mqfq2018Api
     druid:
       maxActive: 500
       initialSize: 5
@@ -56,9 +56,9 @@ mybatis-plus:
     cache-enabled: false
 
 dubbo:
-  name: ups-account-meiqi-consumer
+  name: ups-account-meiqi-consumers
   logger: slf4j
-  address: zookeeper://192.168.2.116:2181
+  address: zookeeper://127.0.0.1:2181 #zookeeper://192.168.2.116:2181
   zkClient: curator
 system:
   code: "01"
