@@ -49,7 +49,7 @@
             <appender-ref ref="ASYNC_LOG"/>
         </root>
     </springProfile>
-    <springProfile name="uat,prd">
+    <springProfile name="uat,prd,prod">
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="ASYNC_LOG"/>
