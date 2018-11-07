@@ -32,6 +32,30 @@ spring:
       logAbandoned: true
       filters: mergeStat
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=6000
+  multidatasources:
+    slave:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://47.96.138.212:3306/ldd?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+      username: root
+      password: xunmiao@pgy@2018
+      druid:
+        maxActive: 50
+        initialSize: 5
+        minIdle: 5
+        maxWait: 60000
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 35
+        validationQuery:  select 1
+        testOnBorrow: false
+        testOnReturn: false
+        testWhileIdle: true
+        timeBetweenEvictionRunsMillis: 60000  #（毫秒）
+        minEvictableIdleTimeMillis: 25200000   #（毫秒）
+        removeAbandoned: true
+        removeAbandonedTimeout: 1800    #设置成你服务中service的最长运行时间（单位秒）
+        logAbandoned: true
+        filters: mergeStat
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=6000
   #mybatis
 mybatis-plus:
   mapper-locations: classpath:/mapper/*/*Mapper.xml

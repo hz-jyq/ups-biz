@@ -9,4 +9,8 @@ public interface UpsCheckAccountsService {
     UpsCheckAccounts  getRecordTypeAndYmd(String type,String ymd,Boolean flag);
 
     void  insertSelective(UpsCheckAccounts record);
+
+
+
+    UpsCheckAccounts  getRecordTypeAndYmd1(String type,String ymd,Boolean flag);
 }
