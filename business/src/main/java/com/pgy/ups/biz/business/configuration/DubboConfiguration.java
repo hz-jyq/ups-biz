@@ -13,7 +13,7 @@ import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 @DubboComponentScan("com.pgy.ups")
 public class DubboConfiguration {
     
-	@Bean
+	/*@Bean
 	public DubboProperties getDubboProperties() {
 		return new DubboProperties();
 	}
@@ -50,5 +50,5 @@ public class DubboConfiguration {
         ProtocolConfig protocolConfig = new ProtocolConfig();
 		protocolConfig.setPort(-1);
         return protocolConfig;
-    }
+    }*/
 }
