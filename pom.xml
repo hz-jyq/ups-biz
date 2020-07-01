@@ -84,7 +84,7 @@
 		<tpas.version>1.0.1</tpas.version>
 		<dubbo-spring-boot>1.0.0</dubbo-spring-boot>
 		<httpclient.version>4.5.6</httpclient.version>
-		<quartz.version>2.3.0</quartz.version>
+		<quartz.version>2.3.2</quartz.version>
 	</properties>
 
 	<dependencyManagement>
